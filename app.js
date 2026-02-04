@@ -139,10 +139,17 @@ function QRCodeFixer() {
                   <DownloadIcon />
                   Download Fixed QR Code
                 </button>
-                <button
-                  onClick={() => setScaleX(1)}
-                  className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
+               <button
+  onClick={() => {
+    setScaleX(1);
+    if (image) {
+      drawScaledImage(image, 1);
+    }
+  }}
+  className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+>
+  Reset to 1:1
+</button>
                   Reset to 1:1
                 </button>
               </div>
