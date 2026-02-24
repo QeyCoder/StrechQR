@@ -14,7 +14,9 @@ function QRCodeFixer() {
         const img = new Image();
         img.onload = () => {
           setImage(img);
-          drawScaledImage(img, scaleX);
+          const initialScale = img.height / img.width;
+          setScaleX(initialScale);
+          drawScaledImage(img, initialScale);
         };
         img.src = event.target.result;
       };
@@ -61,13 +63,13 @@ function QRCodeFixer() {
 
   const UploadIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
     </svg>
   );
 
   const DownloadIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
     </svg>
   );
 
@@ -103,16 +105,16 @@ function QRCodeFixer() {
                 </label>
                 <input
                   type="range"
-                  min="0.5"
-                  max="3"
-                  step="0.05"
+                  min="0.1"
+                  max="5"
+                  step="0.01"
                   value={scaleX}
                   onChange={handleScaleChange}
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>0.5x (More compressed)</span>
-                  <span>3x (More stretched)</span>
+                  <span>0.1x (More compressed)</span>
+                  <span>5x (More stretched)</span>
                 </div>
               </div>
 
@@ -139,17 +141,15 @@ function QRCodeFixer() {
                   <DownloadIcon />
                   Download Fixed QR Code
                 </button>
-               <button
-  onClick={() => {
-    setScaleX(1);
-    if (image) {
-      drawScaledImage(image, 1);
-    }
-  }}
-  className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
->
-  Reset to 1:1
-</button>
+                <button
+                  onClick={() => {
+                    setScaleX(1);
+                    if (image) {
+                      drawScaledImage(image, 1);
+                    }
+                  }}
+                  className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
                   Reset to 1:1
                 </button>
               </div>
